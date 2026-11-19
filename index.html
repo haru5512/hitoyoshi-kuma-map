@@ -390,6 +390,22 @@ footer li{margin:0 0 5px;break-inside:avoid}
 .now summary b{color:var(--water);font-size:13px}
 .now ul{margin:0 0 12px;padding-left:1.2em;display:grid;gap:5px;font-size:14px;max-width:62em}
 .now li span{color:var(--muted);font-size:12px}
+
+/* 最新情報の折りたたみ */
+.alert.now{margin-top:0;border-top:0}
+.now b.al{color:var(--water)}
+.now summary::after{color:var(--water)}
+.now summary:hover{color:var(--water)}
+.now ul{margin:2px 0 12px}
+.latest{padding:0 12px}
+.latest summary{min-height:40px;display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer;list-style:none}
+.latest summary::-webkit-details-marker{display:none}
+.latest summary b{color:var(--water)}
+.latest summary span{color:var(--muted);font-size:12px}
+.latest summary::after{content:"";width:7px;height:7px;margin-left:auto;margin-right:2px;flex:none;border-right:1.5px solid var(--water);border-bottom:1.5px solid var(--water);transform:rotate(45deg) translateY(-2px)}
+.latest[open] summary::after{transform:rotate(225deg) translateY(-1px)}
+.latest[open]{padding-bottom:10px}
+.latest summary:focus-visible{outline:2px solid var(--water);outline-offset:2px}
 </style>
 
 </head>
@@ -411,8 +427,8 @@ footer li{margin:0 0 5px;break-inside:avoid}
       <summary><b class="al">地震・立入規制</b><span>出発前に山道や遊歩道の状況を確認</span></summary>
       <p>11/19の2時22分ごろ、天草・芦北地方を震源とする地震（M5.7）があり、球磨村・あさぎり町で震度5弱、人吉市で震度4を観測しました。7月の熊本地震の影響でも、人吉城跡の本丸などがいまも立入禁止です。滝や山道の遊歩道は、出かける前に状況を確かめてください。立入禁止や運休がある場所は、地図のピンを赤い点線で囲み、説明に赤字で書いています。</p>
     </details>
-    <details class="now" open>
-      <summary><b>いま押さえておくこと</b><span>11/19時点で確かめた最新情報。出発前にもう一度確認を</span></summary>
+    <details class="alert now">
+      <summary><b class="al">最新情報 9件</b><span>11/19時点。五家荘の交通規制・ライトアップ・色づきなど</span></summary>
       <ul>
     <li>五家荘の交通規制は10:00〜16:00。11/22（日）は全面規制（一方通行）、11/21（土）・11/23（月・祝）は一部規制で、二本杉から美里（砥用）方面へは通れない。規制ルートは八代市観光サイト「きなっせやつしろ」で確認 <span>（DMOやつしろ 11/18・きなっせ八代）</span></li>
     <li>五家荘は見頃。落葉始めの予想は葉木（梅の木轟あたり）11/20ごろ、せんだん轟11/23ごろ、樅木11/24ごろ。11月いっぱい楽しめる見込み <span>（ウェザーニュース 11/18・熊日 11/14）</span></li>
@@ -550,7 +566,8 @@ const latestList = arr => `<ul>${arr.map(x => `<li><span class="ld">${esc(fmtD(x
 const latestBlock = s => {
   const own = LATEST[s.id] || [], area = AREA_LATEST[AREA_OF[s.a]] || [];
   if (!own.length && !area.length) return "";
-  return `<div class="latest"><h4>最新情報（11/19時点で確認）</h4>${own.length ? latestList(own) : `<p class="lp" style="margin:0">この場所の新しい投稿・発表は見つかりませんでした。</p>`}${area.length ? `<h4 class="sub">このエリアの最新情報</h4>${latestList(area)}` : ""}</div>`;
+  const n = own.length + area.length; const newest = [...own, ...area].map(x => x.d).filter(d => /^2026-/.test(d)).sort().pop();
+  return `<details class="latest"><summary><b>最新情報 ${n}件</b><span>${newest ? fmtD(newest) + "まで" : ""}${own.length ? "" : "（この場所の分はなし・エリアの情報のみ）"}</span></summary>${own.length ? latestList(own) : `<p class="lp" style="margin:0">この場所の新しい投稿・発表は見つかりませんでした。</p>`}${area.length ? `<h4 class="sub">このエリアの最新情報</h4>${latestList(area)}` : ""}</details>`;
 };
 const latestChip = s => { const own = LATEST[s.id]; return own && own.length ? `<span class="lnew">最新情報 ${esc(fmtD(own[0].d))}</span>` : ""; };
 const TAGS = {
