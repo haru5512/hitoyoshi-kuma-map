@@ -366,6 +366,10 @@ footer li{margin:0 0 5px;break-inside:avoid}
   #credits{columns:1}
   .panel{border-radius:10px 10px 0 0}
 }
+
+/* 説明パネルを地図のボタン（拡大縮小・全画面・出典表示）より前に出す */
+.panel{z-index:1100}
+.stage.is-full .panel{z-index:1101}
 </style>
 
 </head>
