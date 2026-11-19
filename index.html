@@ -432,6 +432,11 @@ footer li{margin:0 0 5px;break-inside:avoid}
 /* 所要時間は Googleマップの時間だけ。薄くせず読みやすく */
 .card .cm span{font-weight:500;color:var(--ink)}
 .panel .drive-primary span,.panel .drive-primary b{color:var(--ink)}
+
+/* 隣の行が高くても名前の位置がずれないよう、上端でそろえる */
+.card{align-items:flex-start}
+.card .cb{align-content:start}
+.card::after{align-self:center}
 </style>
 
 </head>
