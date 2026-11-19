@@ -417,6 +417,14 @@ footer li{margin:0 0 5px;break-inside:avoid}
 .card .cm{color:var(--ink);font-size:13px}
 .card .cm span{font-weight:600}
 .card .cm .guide-time{color:var(--water)}
+
+/* 一覧の区切りを見やすく（区切り線を濃く・名前を大きく・時間は普通の太さ） */
+.card{padding:12px 9px 12px 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 22%,var(--paper))}
+.card .cn{font-size:17px;line-height:1.35}
+.card .cm span{font-weight:400}
+.card .cm .guide-time{font-weight:600}
+.area{border-bottom-color:color-mix(in srgb,var(--ink) 35%,var(--paper))}
+@media (max-width:680px){.card .cn{font-size:16px}}
 </style>
 
 </head>
