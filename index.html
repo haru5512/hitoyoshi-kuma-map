@@ -374,6 +374,22 @@ footer li{margin:0 0 5px;break-inside:avoid}
 /* 名前ラベルも押せるようにする（押すとピンと同じく説明が開く） */
 .plabel{pointer-events:auto;cursor:pointer;transition:border-color .15s,box-shadow .15s}
 .plabel:hover{border-color:var(--c);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+
+/* 最新情報 */
+.latest{border:1px solid color-mix(in srgb,var(--water) 40%,var(--line));border-radius:4px;padding:10px 12px;background:color-mix(in srgb,var(--water) 6%,var(--paper))}
+.latest h4{margin:0 0 6px;font-size:13px;letter-spacing:.04em;color:var(--water)}
+.latest ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.latest li{font-size:13px;line-height:1.55}
+.latest .ld{font-weight:700;font-variant-numeric:tabular-nums;margin-right:6px}
+.latest .lk{display:inline-block;font-size:11px;padding:0 6px;border-radius:3px;margin-right:6px;background:color-mix(in srgb,var(--water) 14%,var(--paper))}
+.latest .lp{color:var(--muted);font-size:12px}
+.latest h4.sub{margin-top:10px;color:var(--muted)}
+.card .lnew{font-size:11px;font-weight:700;color:var(--water)}
+.now{margin-top:14px;border-block:1px solid var(--line)}
+.now summary{min-height:42px;display:flex;align-items:center;gap:12px;font-size:13px;cursor:pointer}
+.now summary b{color:var(--water);font-size:13px}
+.now ul{margin:0 0 12px;padding-left:1.2em;display:grid;gap:5px;font-size:14px;max-width:62em}
+.now li span{color:var(--muted);font-size:12px}
 </style>
 
 </head>
@@ -394,6 +410,20 @@ footer li{margin:0 0 5px;break-inside:avoid}
     <details class="alert">
       <summary><b class="al">地震・立入規制</b><span>出発前に山道や遊歩道の状況を確認</span></summary>
       <p>11/19の2時22分ごろ、天草・芦北地方を震源とする地震（M5.7）があり、球磨村・あさぎり町で震度5弱、人吉市で震度4を観測しました。7月の熊本地震の影響でも、人吉城跡の本丸などがいまも立入禁止です。滝や山道の遊歩道は、出かける前に状況を確かめてください。立入禁止や運休がある場所は、地図のピンを赤い点線で囲み、説明に赤字で書いています。</p>
+    </details>
+    <details class="now" open>
+      <summary><b>いま押さえておくこと</b><span>11/19時点で確かめた最新情報。出発前にもう一度確認を</span></summary>
+      <ul>
+    <li>五家荘の交通規制は10:00〜16:00。11/22（日）は全面規制（一方通行）、11/21（土）・11/23（月・祝）は一部規制で、二本杉から美里（砥用）方面へは通れない。規制ルートは八代市観光サイト「きなっせやつしろ」で確認 <span>（DMOやつしろ 11/18・きなっせ八代）</span></li>
+    <li>五家荘は見頃。落葉始めの予想は葉木（梅の木轟あたり）11/20ごろ、せんだん轟11/23ごろ、樅木11/24ごろ。11月いっぱい楽しめる見込み <span>（ウェザーニュース 11/18・熊日 11/14）</span></li>
+    <li>宮園の大イチョウは、11/19の時点で木の下が「イチョウのカーペット」。落葉が進んでいる <span>（個人の投稿 11/19）</span></li>
+    <li>白滝公園（五木村）は、地元の人も今が見頃とおすすめ。標高1000m近くの山の紅葉も今がベスト <span>（五木村非公式アカウント 11/15・11/18）</span></li>
+    <li>麓城址（あさぎり町）は見頃。新宮寺（錦町）も11/19に見頃の投稿 <span>（あさぎり町 11/16・ウォーカープラス 11/19・個人の投稿 11/19）</span></li>
+    <li>里宮神社（湯前町）は紅葉のライトアップ中。11/14〜11/30、18時〜21時ごろ。11/17時点で赤と緑のグラデーション <span>（人吉球磨チャンネル 11/18・ゆのまえまち非公式 11/17）</span></li>
+    <li>人吉城跡はまだ色づき始め（3割）で、見頃は11/25ごろの予想。11/22は10〜17時に城跡の広場で音楽フェス「KUMANAN MUSIC」 <span>（ウェザーニュース 11/17・人吉球磨チャンネル）</span></li>
+    <li>行事：一武八幡宮（錦町）の秋季例大祭が11/20、青井阿蘇神社の球磨神楽特別公演が11/21の19時から（40名・予約制）、球磨村神瀬で「たかおと秋まつり」が11/22 <span>（人吉球磨チャンネル）</span></li>
+    <li>11/19未明の地震（M5.7）について、気象庁は1週間ほど同じくらいの揺れと、落石・崖崩れに注意するよう呼びかけ。南九州道の八代南〜日奈久は通行止め（11/20中の解除見込み）。球泉洞は地震後の休止告知はないが、行く前に電話で確認を <span>（熊日・KKT・人吉新聞・NHK・球泉洞 11/19）</span></li>
+      </ul>
     </details>
   </div>
 </header>
@@ -510,6 +540,19 @@ const GUIDE_DRIVES = {
   megurikannon: {minutes:25, source:"https://hitoyoshikuma-guide.com/2019/02/13/33kannon-18/"},
   maruokapark: {minutes:20, source:"https://hitoyoshikuma-guide.com/2019/02/25/maruoka-park/"}
 };
+
+const LATEST = {"satomiya": [{"d": "2026-11-18", "k": "ライトアップ", "i": "紅葉のライトアップを実施中。2026年11月14日（土）〜30日（月）、18時〜21時ごろ（日没で変動）。池に映る紅葉も照らされている。", "p": "人吉球磨チャンネル（Instagram）", "u": "https://www.instagram.com/p/Df4S2aPMQyM/"}, {"d": "2026-11-17", "k": "色づき", "i": "11/17時点で境内はかなり色づき、赤と緑が混じるグラデーション。11/10時点は2割程度だった。", "p": "ゆのまえまち非公式インスタグラム", "u": "https://www.instagram.com/p/Df1cFrNkQZr/"}], "fumoto": [{"d": "2026-11-19", "k": "色づき", "i": "11/19に麓城跡の紅葉を撮影した投稿あり。谷水薬師からの坂道は大変だがおすすめ、との投稿も同日。", "p": "個人の投稿（Instagram）", "u": ""}, {"d": "2026-11-19", "k": "色づき", "i": "「今見頃」（11月19日16:12更新）。無料駐車場は10台。", "p": "ウォーカープラス", "u": "https://koyo.walkerplus.com/detail/ar1043e154788/"}, {"d": "2026-11-19", "k": "色づき", "i": "「紅葉見頃」（11月19日更新）。", "p": "tenki.jp（日本気象協会）", "u": "https://tenki.jp/kouyou/9/46/30513.html"}, {"d": "2026-11-17", "k": "色づき", "i": "町の発表では、11月16日（月）時点で麓城址のモミジは「見頃」。城跡までは急な山道を約15分歩き、狭い所やぬかるみ、木の根の出ている所があるのでスニーカー推奨。", "p": "あさぎり町（公式サイト）", "u": "https://www.town.asagiri.lg.jp/kiji0034927/index.html"}], "shinguji": [{"d": "2026-11-19", "k": "色づき", "i": "11/19の投稿で「新宮寺六観音の紅葉が見頃を迎えていた」。", "p": "個人の投稿（Instagram）", "u": ""}], "sagarabochi": [{"d": "2026-11-17", "k": "色づき", "i": "11/17時点で相良家墓地の大イチョウがかなり黄色く色づいてきた。これから黄金色になる見込み。", "p": "人吉球磨チャンネル（Instagram）", "u": "https://www.instagram.com/hitokumach/"}], "matsutani": [{"d": "2026-11-19", "k": "色づき", "i": "11/18撮影。棚田まわりの山は少しずつ秋色に染まり始めた段階。", "p": "人吉球磨チャンネル（Instagram）", "u": "https://www.instagram.com/p/Df63pEkhSX2/"}], "tengubashi": [{"d": "2026-11-17", "k": "イベント", "i": "11/17に天狗橋近くの中神白木神社で秋季例大祭（球磨神楽の奉納）。境内の大イチョウは色づき始め。", "p": "人吉球磨チャンネル（Instagram）", "u": "https://www.instagram.com/p/Df6LCJAHjHL/"}], "ichibuhachiman": [{"d": "2026-11-18", "k": "イベント", "i": "11月20日（金）に秋季例大祭。球磨神楽の笛や太鼓が奉納される。", "p": "人吉球磨チャンネル（Instagram）", "u": "https://www.instagram.com/p/Df5h0XYhnEQ/"}], "maeaso": [{"d": "2026-11-17", "k": "色づき", "i": "山江村の淡島神社周辺で紅葉が始まった（11/17）。万江阿蘇神社の情報ではないが、山江村の色づきの目安。", "p": "人吉球磨チャンネル（Instagram）", "u": "https://www.instagram.com/hitokumach/"}], "miyazono": [{"d": "2026-11-19", "k": "色づき", "i": "11/19の投稿で、大イチョウの下はすでに「イチョウのカーペット」。落葉が進んでいる。", "p": "個人の投稿（Instagram）", "u": ""}], "shiratakipk": [{"d": "2026-11-18", "k": "色づき", "i": "11/18時点で「地元の人も今が見頃とおすすめ」。11/14にもモミジやイチョウが見頃と投稿。", "p": "五木村非公式アカウント（Instagram）", "u": "https://www.instagram.com/p/Df4lsWFlDcc/"}], "heike": [{"d": "2026-11-16", "k": "色づき", "i": "11/16に平家の里の紅葉は見頃だったとの投稿。11/18にも雨に濡れた紅葉の投稿。", "p": "個人の投稿（Instagram）", "u": ""}], "umenoki": [{"d": "2026-11-19", "k": "色づき", "i": "梅の木轟公園吊橋は「今見頃」（11月19日16:12更新）。無料駐車場は20台。土日祝の12〜16時が混みやすい。", "p": "ウォーカープラス", "u": "https://koyo.walkerplus.com/detail/ar1043e12959/"}, {"d": "2026-11-18", "k": "色づき", "i": "11/18・19に梅の木轟公園吊橋からの紅葉がきれいとの投稿。", "p": "個人の投稿（Instagram）", "u": ""}, {"d": "2026-11-18", "k": "色づき", "i": "五家荘（葉木）は11月18日時点で「見頃（7〜8割色づき）」、落葉始めは11月20日頃の予想。ページでは梅の木轟公園吊橋を主な見どころとして紹介。", "p": "ウェザーニュース", "u": "https://weathernews.jp/koyo/spot/28613/"}], "momiki": [{"d": "2026-11-18", "k": "色づき", "i": "11月18日時点で「見頃（7〜8割色づき）」。落葉始めは11月24日頃の予想。", "p": "ウェザーニュース", "u": "https://weathernews.jp/koyo/spot/28615/"}, {"d": "2026-11-16", "k": "注意", "i": "雨の日は吊橋の床が濡れて滑りやすい、との投稿（11/16）。11/11時点で「いい感じ、これから」との投稿も。", "p": "個人の投稿（Instagram）", "u": ""}], "sendan": [{"d": "2026-11-18", "k": "色づき", "i": "11月18日時点で「見頃（7〜8割色づき）」。落葉始めは11月23日頃の予想。", "p": "ウェザーニュース", "u": "https://weathernews.jp/koyo/spot/28606/"}, {"d": "2026-11-16", "k": "色づき", "i": "11/13撮影の投稿で「滝の紅葉はまだ早い」と地元の人の話。11/12には紅葉が進んでいるとの投稿もあり、場所で差がある。", "p": "個人の投稿（Instagram）", "u": ""}], "hitoyoshijo": [{"d": "2026-11-19", "k": "色づき", "i": "球磨川の紅葉は「色づき始め」（11月19日16:12更新）。専用駐車場はなし。", "p": "ウォーカープラス", "u": "https://koyo.walkerplus.com/detail/ar1043e154792/"}, {"d": "2026-11-17", "k": "色づき", "i": "11月17日時点で「色づき始め（全体の3割）」。見頃予想は11月25日頃から、落葉始めは12月7日頃の予想。ライトアップはなし。", "p": "ウェザーニュース", "u": "https://weathernews.jp/koyo/spot/28609/"}, {"d": "2026-10-16", "k": "イベント", "i": "【2026年日程の告知】音楽フェス「KUMANAN MUSIC 2026」を11月22日（日）10:00〜17:00に人吉城跡ふるさと歴史の広場で開催（有料、地震の復興支援イベント）。当日は広場に人とステージが入る見込み。駐車・交通規制の記載はなし。", "p": "人吉球磨チャンネル", "u": "https://hitoyosikumach.com/event-hitoyoshi-kumanan-music202611"}], "aoi": [{"d": "2026-10-03", "k": "イベント", "i": "【2026年日程の告知】球磨神楽特別公演の最終回が11月21日（土）19:00〜20:00頃（開場18:30）。会場は青井の杜 国宝記念館の大広間。各回40名の事前予約制、観覧料1,000円。", "p": "人吉球磨チャンネル", "u": "https://hitoyosikumach.com/event-kuma-kagura202610"}], "kyusendo": [{"d": "2026-11-19", "k": "色づき", "i": "球磨川（球泉洞付近）は「色づき始め」（11月19日更新）。", "p": "tenki.jp（日本気象協会）", "u": "https://tenki.jp/kouyou/9/46/30523.html"}, {"d": "2026-11-19", "k": "営業", "i": "11月19日に確認した時点で、公式のお知らせ欄の最新は8月9日の「探検コース営業再開」で、11月19日の地震のあとの休止・休館の告知は出ていない。ただし8月は地震後に探検コースを休止した前例がある（8月3日告知）。通常の営業時間は9:00〜17:00。", "p": "球泉洞（公式サイト）", "u": "https://kyusendo.jp/news/"}], "konose": [{"d": "2026-11-13", "k": "イベント", "i": "「第1回 たかおと秋まつり」が11月22日（日）11:00〜15:00、神瀬みんなの家・くすのき公園で開かれる（ステージや出店あり）。洞窟の公開や駐車場の記載はない。", "p": "人吉球磨チャンネル", "u": "https://hitoyosikumach.com/event-kumamura-takaoto-festival202611"}]};
+const AREA_LATEST = {"itsuki": [{"d": "2026-11-19", "k": "色づき", "i": "九折瀬のイチョウは先週末まで青かったが、11/19時点で徐々に黄色くなってきた。", "p": "五木村非公式アカウント（Instagram）", "u": "https://www.instagram.com/p/Df7L8nOFGct/"}, {"d": "2026-11-15", "k": "色づき", "i": "標高1000m近くの山の紅葉は今がベストシーズン（11/15）。村内各地もこれから本格的な紅葉狩り（11/14）。", "p": "五木村非公式アカウント（Instagram）", "u": "https://www.instagram.com/itsuki_village_unofficial/"}], "gokanosho": [{"d": "2026年の日程", "k": "通行・規制", "i": "2026年の泉町（五家荘）紅葉祭は10月30日〜11月30日。規制時間はいずれも10:00〜16:00。全面一方通行は11月14日・15日・22日。部分規制は11月7日・8日・21日・23日で、二本杉峠から美里（砥用）方面へは進入できない。", "p": "きなっせ八代（八代市観光サイト）", "u": "https://www.kinasse-yatsushiro.jp/events/detail/7b30f595-db38-46a8-bdbc-734d3e883680"}, {"d": "2026-11-19", "k": "イベント", "i": "五家荘フォトラリー開催中。チラシの9か所を同じ構図で撮って応募すると、抽選で特産品。", "p": "DMOやつしろ（Instagram）", "u": "https://www.instagram.com/p/Df7B8Hth9CY/"}, {"d": "2026-11-19", "k": "色づき", "i": "五家荘全体で「紅葉見頃」（11月19日更新）。", "p": "tenki.jp（日本気象協会）", "u": "https://tenki.jp/kouyou/9/46/30575.html"}, {"d": "2026-11-18", "k": "通行・規制", "i": "五家荘の紅葉はいまが見ごろ。紅葉祭は10/30〜11/30。交通規制は10:00〜16:00。11/21（土）・11/23（月・祝）は一部規制（二本杉から美里〔砥用〕方面へ通行不可）、11/22（日）は全面規制（一方通行）。規制ルートは八代市観光サイト「きなっせやつしろ」で確認。", "p": "DMOやつしろ（Instagram）", "u": "https://www.instagram.com/p/Df4dJETBsfZ/"}, {"d": "2026-11-14", "k": "色づき", "i": "梅の木轟公園つり橋の付近が見頃。このあと樅木のつり橋付近、せんだん轟の滝付近の順に見頃になり、11月いっぱい楽しめる見込み。市泉支所は今年は例年より色が鮮やかだとしている。", "p": "熊本日日新聞（Yahoo!ニュース配信）", "u": "https://news.yahoo.co.jp/articles/60c9e6b7229ce19dbe43fd30fc4943795b1150e4"}], "asagiri": [{"d": "2026-11-13", "k": "その他", "i": "霧が出る季節。白髪岳の千望展望所から雲海が見られる（あさぎり町）。運転は注意。", "p": "個人の投稿（Instagram）", "u": ""}], "kumamura": [{"d": "2026-11-19", "k": "通行・規制", "i": "未明の地震で球磨村は観測史上初の震度5弱を観測し、村全域に避難指示（警戒レベル4）が出た。避難指示は同日10:30に解除。", "p": "NHK", "u": "https://news.web.nhk/newsweb/na/nd-20261119de78213"}]};
+const AREA_OF = {"五家荘": "gokanosho", "五木村": "itsuki", "球磨村": "kumamura", "あさぎり町": "asagiri"};
+
+const fmtD = d => /^2026-\d\d-\d\d$/.test(d) ? `${+d.slice(5,7)}/${+d.slice(8,10)}` : d;
+const latestList = arr => `<ul>${arr.map(x => `<li><span class="ld">${esc(fmtD(x.d))}</span><span class="lk">${esc(x.k)}</span>${esc(x.i)} <span class="lp">（${x.u ? `<a href="${x.u}" target="_blank" rel="noopener">${esc(x.p)}</a>` : esc(x.p)}）</span></li>`).join("")}</ul>`;
+const latestBlock = s => {
+  const own = LATEST[s.id] || [], area = AREA_LATEST[AREA_OF[s.a]] || [];
+  if (!own.length && !area.length) return "";
+  return `<div class="latest"><h4>最新情報（11/19時点で確認）</h4>${own.length ? latestList(own) : `<p class="lp" style="margin:0">この場所の新しい投稿・発表は見つかりませんでした。</p>`}${area.length ? `<h4 class="sub">このエリアの最新情報</h4>${latestList(area)}` : ""}</div>`;
+};
+const latestChip = s => { const own = LATEST[s.id]; return own && own.length ? `<span class="lnew">最新情報 ${esc(fmtD(own[0].d))}</span>` : ""; };
 const TAGS = {
   talk:{label:"今回の候補", short:"今回の候補地"},
   natsume:{label:"夏目友人帳", short:"夏目友人帳ゆかりの地"},
@@ -608,6 +651,7 @@ function openPanel(id, fly){
       <div class="meta">${esc(s.a)}${s.ap ? "・おおよその位置" : ""}</div>
       <h3>${esc(s.n)}</h3>
       ${s.warn ? `<span class="warn">${esc(s.warn)}</span>` : ""}
+      ${latestBlock(s)}
       ${worthBadge(s)}${s.worth_why ? `<p class="wnote">${esc(s.worth_why)}</p>` : ""}
       <div class="meta">${s.t.map(t => `<span class="tag c-${t}"><span class="dot"></span>${TAGS[t].label}</span>`).join("")}</div>
       <div class="drive">
@@ -719,7 +763,7 @@ document.getElementById("areas").innerHTML = AREAS.map(a => {
     items.map(s => {
       const guide = GUIDE_DRIVES[s.id];
       return `<button class="card" id="card-${s.id}" data-id="${s.id}">
-      <div class="cb"><span class="cn">${esc(s.n)}</span>${worthBadge(s, true)}${s.warn ? `<span class="warn">${esc(s.warn)}</span>` : ""}
+      <div class="cb"><span class="cn">${esc(s.n)}</span>${latestChip(s)}${worthBadge(s, true)}${s.warn ? `<span class="warn">${esc(s.warn)}</span>` : ""}
       <span class="cm num">${guide ? `<span class="guide-time">観光案内 ${guide.minutes}分</span>` : ""}<span>${driveModel(s)}</span></span><span class="card-types">${s.t.map(t => `<span class="card-type c-${t}"><span class="dot" aria-hidden="true"></span>${TAGS[t].label}</span>`).join(" ")}</span></div>
       ${PHOTOS[s.id] ? `<img class="card-photo" src="${PHOTOS[s.id].file}" alt="" loading="lazy" width="68" height="52">` : ""}
     </button>`;
