@@ -111,14 +111,26 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3
 .note b{display:block;font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:700}
 .credit{font-size:11px;color:var(--muted);line-height:1.5}
 .close{position:sticky;top:8px;align-self:flex-end;flex:none;margin:8px 8px -48px 0;z-index:2;width:40px;height:40px;min-width:40px;padding:0;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:400 24px/1 var(--f-body);cursor:pointer;box-shadow:0 1px 6px rgba(0,0,0,.25);-webkit-appearance:none;appearance:none}
-.hint{position:absolute;z-index:400;left:12px;bottom:12px;font-size:12px;padding:6px 10px;border-radius:8px;background:color-mix(in srgb,var(--paper) 92%,transparent);color:var(--muted);border:1px solid var(--line)}
+.areas-jump{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.areas-jump::-webkit-scrollbar{display:none}
+.jump{font:inherit;font-size:13px;flex:none;padding:7px 12px;min-height:36px;border-radius:8px;border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 4%,var(--paper));color:var(--ink);cursor:pointer}
+.fullbtn{position:absolute;z-index:450;top:10px;right:10px;font:inherit;font-size:13px;padding:8px 12px;min-height:38px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.2);cursor:pointer}
+.stage.is-full{position:fixed;inset:0;z-index:1000;border-radius:0;border:none}
+.stage.is-full #map{height:100%;min-height:0}
+.stage.is-full .fullbtn{top:calc(10px + env(safe-area-inset-top,0px));right:calc(10px + env(safe-area-inset-right,0px))}
+.gesture{position:absolute;inset:0;z-index:440;display:grid;place-items:center;background:rgba(0,0,0,.45);color:#fff;font-size:15px;font-weight:700;text-align:center;padding:20px;pointer-events:none;opacity:0;transition:opacity .2s}
+.gesture.show{opacity:1}
+.sunwrap{overflow-x:auto}
+.sun th,.sun td{white-space:nowrap}
+.hint{position:absolute;z-index:400;left:12px;bottom:28px;font-size:12px;padding:6px 10px;border-radius:8px;background:color-mix(in srgb,var(--paper) 92%,transparent);color:var(--muted);border:1px solid var(--line)}
 
 /* list */
 .listsec{padding-block:40px 20px}
 .listsec>.wrap>h2{font-size:30px}
 .listsec>.wrap>p{color:var(--muted);margin:8px 0 0}
 .area{margin-top:30px}
-.area h3{font-size:19px;display:flex;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.area h3{font-size:19px;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding-bottom:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.area h3 small{white-space:normal}
 .area h3 small{font-family:var(--f-body);font-size:12px;color:var(--muted);font-weight:500}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:14px}
 .card{all:unset;box-sizing:border-box;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
@@ -176,6 +188,16 @@ footer li{margin:2px 0}
   .panel{position:fixed;top:auto;left:0;right:0;bottom:0;width:auto;max-width:none;max-height:72vh;border-radius:16px 16px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
   .panel img,.panel .noimg{height:170px}
   #map{height:62vh;min-height:360px}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card .cb{padding:9px 10px 11px}
+  .card .cn{font-size:14px}
+  .card .cm{flex-direction:column;gap:2px}
+  .card .noimg span:first-child{display:none}
+  .chip{min-height:36px}
+  .sun th,.sun td{padding:7px 6px;font-size:13px}
+  .sun td b{font-size:16px}
+  .hint{left:8px;right:8px;bottom:26px;text-align:center}
+  .stage.is-full .panel{z-index:1001}
 }
 </style>
 
@@ -204,8 +226,11 @@ footer li{margin:2px 0}
       <h2>候補地マップ</h2>
       <div class="chips" id="chips" role="group" aria-label="表示する種類"></div>
     </div>
-    <div class="stage">
+    <div class="areas-jump" id="jumps" role="group" aria-label="エリアへ移動"></div>
+    <div class="stage" id="stage">
       <div id="map" role="application" aria-label="候補地の地図"></div>
+      <button class="fullbtn" id="fullBtn" type="button">全画面で見る</button>
+      <div class="gesture" id="gesture">地図は2本指で動かせます<br>（「全画面で見る」なら1本指で動かせます）</div>
       <div class="hint" id="hint">ピンに触れると写真・クリックで説明</div>
       <aside class="panel" id="panel" hidden aria-live="polite"></aside>
     </div>
@@ -218,14 +243,14 @@ footer li{margin:2px 0}
     <div class="bgrid">
       <div class="box">
         <h3>日の出・日の入り（人吉）</h3>
-        <table class="sun">
+        <div class="sunwrap"><table class="sun">
           <thead><tr><th>日付</th><th>明るくなる</th><th>日の出</th><th>日の入り</th><th>暗くなる</th></tr></thead>
           <tbody>
             <tr><td>11/21 土</td><td>6:24</td><td><b>6:51</b></td><td><b>17:14</b></td><td>17:41</td></tr>
             <tr><td>11/22 日</td><td>6:25</td><td><b>6:52</b></td><td><b>17:14</b></td><td>17:40</td></tr>
             <tr><td>11/23 月</td><td>6:26</td><td><b>6:52</b></td><td><b>17:14</b></td><td>17:40</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p>人吉の緯度経度から計算した値で、地平線が平らな場合の時刻です。「明るくなる・暗くなる」は市民薄明（太陽が地平線の下6度）。山あいの滝や五家荘では、尾根に隠れて日の入りより早く日が陰ります。</p>
       </div>
       <div class="box">
@@ -300,7 +325,7 @@ const img = (s, links=false) => {
   const p = PHOTOS[s.id];
   if (p) return `<img src="${p.file}" alt="${esc(s.n)}" loading="${links ? "eager" : "lazy"}">`;
   return `<div class="noimg c-${primary(s)}"><span>自由に使える写真が見つからなかった場所です</span>${links ?
-    `<span class="btns"><a class="btn" href="${imgSearch(s)}" target="_blank" rel="noopener">写真を検索</a><a class="btn" href="${photoPage(s)}" target="_blank" rel="noopener">紹介ページ</a></span>` : "<span>クリックで写真へのリンク</span>"}</div>`;
+    `<span class="btns"><a class="btn" href="${imgSearch(s)}" target="_blank" rel="noopener">写真を検索</a><a class="btn" href="${photoPage(s)}" target="_blank" rel="noopener">紹介ページ</a></span>` : `<span>${matchMedia("(hover: none) and (pointer: coarse)").matches ? "タップ" : "クリック"}で写真へのリンク</span>`}</div>`;
 };
 const SECS = [["look","見どころ"],["foliage","紅葉"],["light","光・時間帯"],["shot","撮影ポイント・構図"],["access","行き方・駐車・歩く距離"],["stay","滞在の目安"],["caution","注意"]];
 
@@ -310,6 +335,7 @@ document.getElementById("counts").innerHTML = ORDER.map(t =>
   `<div class="lg c-${t}"><span class="dot"></span><div><b>${counts[t]}</b><br><span>${TAGS[t].short}</span></div></div>`).join("");
 
 /* map */
+const TOUCH = matchMedia("(hover: none) and (pointer: coarse)").matches;
 const bounds = L.latLngBounds([32.08,130.55],[32.66,131.16]);
 const map = L.map("map", {zoomControl:true, minZoom:9, maxZoom:17, maxBounds:bounds.pad(0.3), scrollWheelZoom:false});
 L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png", {minZoom:9, maxZoom:17,
@@ -327,7 +353,7 @@ SPOTS.forEach(s => {
   const pt = primary(s);
   const icon = L.divIcon({className:"", html:`<span class="pin c-${pt}${s.t.includes("talk") ? " is-talk" : ""}${s.warn ? " has-warn" : ""}" data-id="${s.id}"></span>`, iconSize:[22,22], iconAnchor:[11,11]});
   const m = L.marker(s.ll, {icon, title:s.n, alt:s.n, riseOnHover:true});
-  m.bindTooltip(`<div class="c-${pt}">${img(s)}</div><div class="tt"><b>${esc(s.n)}</b><span>${esc(s.a)}・車で約${driveText(s)}</span>${s.warn ? `<br><span class="warn">${esc(s.warn)}</span>` : ""}</div>`,
+  if (!TOUCH) m.bindTooltip(`<div class="c-${pt}">${img(s)}</div><div class="tt"><b>${esc(s.n)}</b><span>${esc(s.a)}・車で約${driveText(s)}</span>${s.warn ? `<br><span class="warn">${esc(s.warn)}</span>` : ""}</div>`,
     {className:"tip", direction:"top", offset:[0,-12], opacity:1});
   m.on("click", () => openPanel(s.id, false));
   m.addTo(map);
@@ -370,8 +396,54 @@ function closePanel(){
   if (active) markers[active].getElement()?.querySelector(".pin")?.classList.remove("is-active");
   active = null;
 }
-document.addEventListener("keydown", e => { if (e.key === "Escape") closePanel(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { if (stage.classList.contains("is-full")) toggleFull(false); else closePanel(); } });
 map.on("click", closePanel);
+
+/* touch: 1本指はページのスクロール、2本指で地図。全画面では1本指で地図 */
+const stage = document.getElementById("stage"), gesture = document.getElementById("gesture"), fullBtn = document.getElementById("fullBtn");
+let gTimer;
+if (TOUCH) {
+  document.getElementById("hint").textContent = "ピンをタップで説明・2本指で地図を動かす";
+  map.dragging.disable();
+  const el = document.getElementById("map");
+  el.addEventListener("touchstart", e => {
+    if (stage.classList.contains("is-full")) return;
+    if (e.touches.length >= 2) { map.dragging.enable(); gesture.classList.remove("show"); }
+  }, {passive:true});
+  el.addEventListener("touchmove", e => {
+    if (stage.classList.contains("is-full") || e.touches.length >= 2) return;
+    gesture.classList.add("show"); clearTimeout(gTimer); gTimer = setTimeout(() => gesture.classList.remove("show"), 1200);
+  }, {passive:true});
+  el.addEventListener("touchend", e => { if (e.touches.length === 0 && !stage.classList.contains("is-full")) map.dragging.disable(); }, {passive:true});
+}
+function toggleFull(force){
+  const full = force ?? !stage.classList.contains("is-full");
+  stage.classList.toggle("is-full", full);
+  document.documentElement.style.overflow = full ? "hidden" : "";
+  fullBtn.textContent = full ? "閉じる" : "全画面で見る";
+  if (TOUCH) full ? map.dragging.enable() : map.dragging.disable();
+  setTimeout(() => map.invalidateSize(), 50);
+}
+fullBtn.addEventListener("click", () => toggleFull());
+
+/* エリアへ移動 */
+const JUMPS = [
+  {l:"全体", b:[[32.13,130.6],[32.55,131.06]]},
+  {l:"人吉の町なか", c:[32.214,130.758], z:15},
+  {l:"人吉の郊外", b:[[32.13,130.68],[32.25,130.80]]},
+  {l:"球磨村", b:[[32.22,130.60],[32.31,130.68]]},
+  {l:"錦・あさぎり・相良", b:[[32.16,130.80],[32.26,130.93]]},
+  {l:"湯前・水上・多良木", b:[[32.22,130.95],[32.38,131.10]]},
+  {l:"五木村", b:[[32.39,130.74],[32.49,130.87]]},
+  {l:"五家荘・東陽", b:[[32.49,130.75],[32.55,130.98]]},
+];
+const jumps = document.getElementById("jumps");
+jumps.innerHTML = JUMPS.map((j,i) => `<button class="jump" type="button" data-i="${i}">${j.l}</button>`).join("");
+jumps.addEventListener("click", e => {
+  const b = e.target.closest(".jump"); if (!b) return;
+  const j = JUMPS[+b.dataset.i]; closePanel();
+  j.b ? map.flyToBounds(j.b, {padding:[20,20], duration:.6}) : map.flyTo(j.c, j.z, {duration:.6});
+});
 
 /* filters */
 const on = new Set(ORDER);
@@ -402,7 +474,7 @@ document.getElementById("areas").innerHTML = AREAS.map(a => {
     items.map(s => `<button class="card" id="card-${s.id}" data-id="${s.id}">
       <div class="c-${primary(s)}">${img(s)}</div>
       <div class="cb"><span class="cn">${esc(s.n)}</span>${s.warn ? `<span class="warn">${esc(s.warn)}</span>` : ""}
-      <span class="cm"><span class="dots">${s.t.map(t => `<span class="dot c-${t}" title="${TAGS[t].label}"></span>`).join("")}</span><span class="num">駅から車で約${driveText(s)}</span></span></div>
+      <span class="cm"><span class="dots">${s.t.map(t => `<span class="dot c-${t}" title="${TAGS[t].label}"></span>`).join("")}</span><span class="num">${driveText(s) === "出発点" ? "所要時間の出発点" : "駅から車で約" + driveText(s)}</span></span></div>
     </button>`).join("") + `</div></div>`;
 }).join("");
 document.getElementById("areas").addEventListener("click", e => {
