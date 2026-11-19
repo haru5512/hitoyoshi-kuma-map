@@ -406,6 +406,17 @@ footer li{margin:0 0 5px;break-inside:avoid}
 .latest[open] summary::after{transform:rotate(225deg) translateY(-1px)}
 .latest[open]{padding-bottom:10px}
 .latest summary:focus-visible{outline:2px solid var(--water);outline-offset:2px}
+
+/* 一覧の行をそろえる（写真なし・3段） */
+.card .cb{display:grid;grid-template-rows:auto auto auto;gap:3px;align-content:center}
+.card .cn{line-height:1.35}
+.card .cflags{display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px;font-size:12px;line-height:1.45}
+.card .cflags .warn{font-size:12px}
+.card .cflags .card-types{display:inline-flex;gap:3px 10px}
+.card .card-photo{display:none}
+.card .cm{color:var(--ink);font-size:13px}
+.card .cm span{font-weight:600}
+.card .cm .guide-time{color:var(--water)}
 </style>
 
 </head>
@@ -780,9 +791,9 @@ document.getElementById("areas").innerHTML = AREAS.map(a => {
     items.map(s => {
       const guide = GUIDE_DRIVES[s.id];
       return `<button class="card" id="card-${s.id}" data-id="${s.id}">
-      <div class="cb"><span class="cn">${esc(s.n)}</span>${latestChip(s)}${worthBadge(s, true)}${s.warn ? `<span class="warn">${esc(s.warn)}</span>` : ""}
-      <span class="cm num">${guide ? `<span class="guide-time">観光案内 ${guide.minutes}分</span>` : ""}<span>${driveModel(s)}</span></span><span class="card-types">${s.t.map(t => `<span class="card-type c-${t}"><span class="dot" aria-hidden="true"></span>${TAGS[t].label}</span>`).join(" ")}</span></div>
-      ${PHOTOS[s.id] ? `<img class="card-photo" src="${PHOTOS[s.id].file}" alt="" loading="lazy" width="68" height="52">` : ""}
+      <div class="cb"><span class="cn">${esc(s.n)}</span>
+      <span class="cm num">${guide ? `<span class="guide-time">観光案内 ${guide.minutes}分</span>` : ""}<span>${driveModel(s)}</span></span>
+      <span class="cflags">${worthBadge(s, true)}${latestChip(s)}${s.warn ? `<span class="warn">${esc(s.warn)}</span>` : ""}<span class="card-types">${s.t.map(t => `<span class="card-type c-${t}"><span class="dot" aria-hidden="true"></span>${TAGS[t].label}</span>`).join(" ")}</span></span></div>
     </button>`;
     }).join("") + `</div></div>`;
 }).join("");
